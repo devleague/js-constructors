@@ -45,7 +45,7 @@ describe('Spell', function() {
       iceblast.description.should.equal('Creates a blast of ice, freezing any living thing where it stands.');
     });
 
-    it('should print out the all of the spells information', function() {
+    it('should print out the all of the spell\'s information', function() {
       var fireball = new Spell('Fireball', 5, 'Conjures a ball of fire.');
       fireball.printDetails();
       var fireballDetails = console.log.getCall(0).args[0];
