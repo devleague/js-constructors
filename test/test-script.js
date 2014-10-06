@@ -219,14 +219,15 @@ describe('Spellcaster', function() {
 
       it('should deal damage to target only if DamageSpell is successfully invoked', function(){
         var loren = new Spellcaster('Loren', 300, 125),
+            morty = new Spellcaster('Morty', 300, 125),
             expensivePulse = new DamageSpell('Force Pulse', loren.mana + 1, Math.floor(loren.mana/10), 'Strikes a foe with a powerful blast, knocking them to the ground.'),
             forcePulse = new DamageSpell('Force Pulse', Math.floor(loren.mana/2), Math.floor(loren.mana/10), 'Strikes a foe with a powerful blast, knocking them to the ground.'),
             totalHealth = loren.health,
             totalMana = loren.mana;
-        (loren.invoke(expensivePulse, loren)).should.be.false;
-        loren.health.should.equal(totalHealth);
-        (loren.invoke(forcePulse, loren)).should.be.true;
-        loren.health.should.equal(totalHealth - forcePulse.damage);
+        (loren.invoke(expensivePulse, morty)).should.be.false;
+        morty.health.should.equal(totalHealth);
+        (loren.invoke(forcePulse, morty)).should.be.true;
+        morty.health.should.equal(totalHealth - forcePulse.damage);
       });
     });
 
