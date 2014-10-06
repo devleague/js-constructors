@@ -101,7 +101,6 @@ describe('DamageSpell', function() {
   });
 });
 
-
 describe('Spellcaster', function() {
 
   it('should be a function', function() {
@@ -211,10 +210,16 @@ describe('Spellcaster', function() {
             forcePulse = new DamageSpell('Force Pulse', Math.floor(loren.mana/2), Math.floor(loren.mana/10), 'Strikes a foe with a powerful blast, knocking them to the ground.'),
             totalMana = loren.mana;
         expect(loren.invoke(forcePulse)).to.be.false;
-        expect(loren.mana).to.equal(totalMana);
+        expect(loren.invoke(forcePulse, loren)).to.be.true;
+      });
+
+      it('should only spend mana if the DamageSpell was succesfully invoked', function() {
+        var loren = new Spellcaster('Loren', 300, 125),
+          forcePulse = new DamageSpell('Force Pulse', Math.floor(loren.mana/2), Math.floor(loren.mana/10), 'Strikes a foe with a powerful blast, knocking them to the ground.');
         expect(loren.invoke(forcePulse, null)).to.be.false;
         expect(loren.mana).to.equal(totalMana);
-        expect(loren.invoke(forcePulse, loren)).to.be.true;
+        expect(loren.invoke(forcePulse, loren)).to.be.false;
+        expect(loren.mana).to.equal(totalMana);
       });
 
       it('should not deal damage if the DamageSpell was not successfully invoked', function() {
