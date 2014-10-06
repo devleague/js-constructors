@@ -26,6 +26,7 @@
  *
  * In addition, you will also want to assign `DamageSpell.prototype`
  * a value so that it inherits from `Spell`.
+ * Make sure to call this OUTSIDE of the function declaration.
  *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/prototype
  *

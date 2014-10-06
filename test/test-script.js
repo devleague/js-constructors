@@ -66,12 +66,17 @@ describe('DamageSpell', function() {
     expect(DamageSpell).to.be.a('function');
   });
 
-  it('should inherit from Spell', function() {
+  it('should call Spell\'s constructor function', function() {
     sandbox.stub(window.Spell, "call");
     var damageSpell = new DamageSpell('Damage Spell', 23, 42, 'Deals damage.');
-    expect(DamageSpell.prototype.constructor).to.equal(Spell);
     sinon.assert.calledWithExactly(Spell.call, damageSpell, 'Damage Spell', 23, 'Deals damage.');
     sandbox.restore();
+  });
+
+  it('should be both an instance of Spell and DamageSpell', function() {
+    var damageSpell = new DamageSpell('Damage Spell', 23, 42, 'Deals damage.');
+    damageSpell.should.be.an.instanceof(Spell);
+    damageSpell.should.be.an.instanceof(DamageSpell);
   });
 
   describe('instance object', function() {
