@@ -36,8 +36,8 @@
  * @param {number} damage       The amount of damage this spell deals.
  * @param {string} description  A short description of the spell.
  * @property {string} name
- * @property {number} health
- * @property {mana} mana
+ * @property {number} cost
+ * @property {number} mana
  * @property {number} damage
  */
 
