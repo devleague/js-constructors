@@ -9,6 +9,12 @@
  * @property {sting} description
  */
 
+  /**
+   * Print out all spell details and format it nicely.
+   * The format doesnt matter, as long as it contains the spell name, cost, and description.
+   * @name printDetails
+   */
+
 /**
  * A spell that deals damage.
  * We want to keep this code DRY (Don't Repeat Yourself).
@@ -22,6 +28,7 @@
  *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/prototype
  *
+ * @name DamageSpell
  * @param {string} name         The name of the spell.
  * @param {number} cost         The amount needed to cast this spell.
  * @param {number} damage       The amount of damage this spell deals.
@@ -36,6 +43,7 @@
  * Now that you've created some spells, lets create
  * `Spellcaster` objects that can use them!
  *
+ * @name Spellcaster
  * @param {string} name         The spellcaster's name.
  * @param {number} health       The spellcaster's health points.
  * @param {number} mana         The amount of mana, used for casting spells.
@@ -51,6 +59,7 @@
    * If the spellcaster's health drops to 0,
    * its `isAlive` property should be set to `false`.
    *
+   * @name inflictDamage
    * @param  {number} damage  Amount of damage to deal to the spellcaster
    */
 
@@ -59,6 +68,7 @@
    * Mana should only be reduced only if there is enough mana to spend.
    * @param  {number} cost      The amount of mana to spend.
    *
+   * @name spendMana
    * @return {boolean} success  `true` if mana was reduced, else `false`.
    */
 
@@ -79,6 +89,7 @@
    * If there is enough mana to cast the spell, return `true`.
    * In addition, if it is a `DamageSpell` reduce the target's health by the spell's damage value.
    *
+   * @name invoke
    * @param  {(Spell|DamageSpell)} spell  The spell to be cast.
    * @param  {Spellcaster} target         The spell target to be inflicted.
    * @return {boolean}                    Whether the spell was succesfully cast.
