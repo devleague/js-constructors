@@ -217,17 +217,36 @@ describe('Spellcaster', function() {
         expect(loren.invoke(forcePulse, loren)).to.be.true;
       });
 
+      it('should not deal damage if the DamageSpell was not successfully invoked', function() {
+        var loren = new Spellcaster('Loren', 300, 125),
+          morty = new Spellcaster('Morty', 300, 125),
+          expensivePulse = new DamageSpell('Force Pulse', loren.mana + 1, Math.floor(loren.mana/10), 'Strikes a foe with a powerful blast, knocking them to the ground.'),
+          forcePulse = new DamageSpell('Force Pulse', Math.floor(loren.mana/2), Math.floor(loren.mana/10), 'Strikes a foe with a powerful blast, knocking them to the ground.'),
+          mortyHealth = morty.health,
+          mortyMana = morty.mana,
+          lorenHealth = loren.health,
+          lorenMana = loren.mana;
+        (loren.invoke(expensivePulse, morty)).should.be.false;
+        loren.mana.should.equal(lorenMana);
+        loren.health.should.equal(lorenHealth);
+        morty.mana.should.equal(mortyMana);
+        morty.health.should.equal(mortyHealth);
+      });
+
       it('should deal damage to target only if DamageSpell is successfully invoked', function(){
         var loren = new Spellcaster('Loren', 300, 125),
             morty = new Spellcaster('Morty', 300, 125),
             expensivePulse = new DamageSpell('Force Pulse', loren.mana + 1, Math.floor(loren.mana/10), 'Strikes a foe with a powerful blast, knocking them to the ground.'),
             forcePulse = new DamageSpell('Force Pulse', Math.floor(loren.mana/2), Math.floor(loren.mana/10), 'Strikes a foe with a powerful blast, knocking them to the ground.'),
-            totalHealth = loren.health,
-            totalMana = loren.mana;
-        (loren.invoke(expensivePulse, morty)).should.be.false;
-        morty.health.should.equal(totalHealth);
+            mortyHealth = morty.health,
+            mortyMana = morty.mana,
+            lorenHealth = loren.health,
+            lorenMana = loren.mana;
         (loren.invoke(forcePulse, morty)).should.be.true;
-        morty.health.should.equal(totalHealth - forcePulse.damage);
+        loren.mana.should.equal(lorenMana - forcePulse.cost);
+        loren.health.should.equal(lorenHealth);
+        morty.mana.should.equal(mortyMana);
+        morty.health.should.equal(mortyHealth - forcePulse.damage);
       });
     });
 
