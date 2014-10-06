@@ -1,6 +1,7 @@
 /**
  * Creates a generic spell that can be cast.
  *
+ * @name Spell
  * @param {string} name         The name of the spell.
  * @param {number} cost         The amount needed to cast this spell.
  * @param {string} description  A short description of the spell.
