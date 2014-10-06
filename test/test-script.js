@@ -218,8 +218,8 @@ describe('Spellcaster', function() {
           forcePulse = new DamageSpell('Force Pulse', Math.floor(loren.mana/2), Math.floor(loren.mana/10), 'Strikes a foe with a powerful blast, knocking them to the ground.');
         expect(loren.invoke(forcePulse, null)).to.be.false;
         expect(loren.mana).to.equal(totalMana);
-        expect(loren.invoke(forcePulse, loren)).to.be.false;
-        expect(loren.mana).to.equal(totalMana);
+        expect(loren.invoke(forcePulse, loren)).to.be.true;
+        expect(loren.mana).to.equal(totalMana - forcePulse.cost);
       });
 
       it('should not deal damage if the DamageSpell was not successfully invoked', function() {
