@@ -103,7 +103,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 Spellcaster(name, health, mana)
 -----------------------------
-Now that you've created some spells, lets create
+Now that you've created some spells, let's create
 `Spellcaster` objects that can use them!
 
 **Parameters**
@@ -112,12 +112,12 @@ Now that you've created some spells, lets create
 
 **health**: number, The spellcaster's health points.
 
-**mana**: number, The amount of mana, used for casting spells.
+**mana**: number, The spellcaster's mana points, used for casting spells.
 
 
 inflictDamage(damage)
 -----------------------------
-The spellcaster loses health equal to damage passed in.
+The spellcaster loses health equal to `damage`.
 Health should never be negative.
 If the spellcaster's health drops to 0,
 its `isAlive` property should be set to `false`.
@@ -136,14 +136,14 @@ Mana should only be reduced only if there is enough mana to spend.
 
 **cost**: number, The amount of mana to spend.
 
-**Returns**: boolean, success  `true` if mana was reduced, else `false`.
+**Returns**: boolean, Whether mana was successfully spent.
 
 invoke(spell, target)
 -----------------------------
 Allows the spellcaster to cast spells.
 The first parameter should either be a `Spell` or `DamageSpell`.
 If it is a `DamageSpell`, the second parameter should be a `Spellcaster`.
-The function should return `false` if the above conditions are not satisfied.
+The function should return `false` if neither of the conditions are not satisfied.
 
 You should use `instanceof` to check for these conditions.
 
@@ -165,4 +165,4 @@ to help you with this.
 
 **target**: Spellcaster, The spell target to be inflicted.
 
-**Returns**: boolean, Whether the spell was succesfully cast.
+**Returns**: boolean, Whether the spell was successfully cast.

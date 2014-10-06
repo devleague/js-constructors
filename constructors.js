@@ -7,7 +7,7 @@
  * @param {string} description  A short description of the spell.
  * @property {string} name
  * @property {number} cost
- * @property {sting} description
+ * @property {string} description
  */
 
   /**
@@ -42,21 +42,21 @@
  */
 
 /**
- * Now that you've created some spells, lets create
+ * Now that you've created some spells, let's create
  * `Spellcaster` objects that can use them!
  *
  * @name Spellcaster
  * @param {string} name         The spellcaster's name.
  * @param {number} health       The spellcaster's health points.
- * @param {number} mana         The amount of mana, used for casting spells.
+ * @param {number} mana         The spellcaster's mana points, used for casting spells.
  * @property {string} name
  * @property {number} health
  * @property {mana} mana
- * @property {boolean} isAlive  Default value should be `true`
+ * @property {boolean} isAlive  Default value should be `true`.
  */
 
   /**
-   * The spellcaster loses health equal to damage passed in.
+   * The spellcaster loses health equal to `damage`.
    * Health should never be negative.
    * If the spellcaster's health drops to 0,
    * its `isAlive` property should be set to `false`.
@@ -68,10 +68,10 @@
   /**
    * Reduces the spellcaster's mana by `cost`.
    * Mana should only be reduced only if there is enough mana to spend.
-   * @param  {number} cost      The amount of mana to spend.
    *
    * @name spendMana
-   * @return {boolean} success  `true` if mana was reduced, else `false`.
+   * @param  {number} cost      The amount of mana to spend.
+   * @return {boolean} success  Whether mana was successfully spent.
    */
 
   /**
@@ -97,5 +97,5 @@
    * @name invoke
    * @param  {(Spell|DamageSpell)} spell  The spell to be cast.
    * @param  {Spellcaster} target         The spell target to be inflicted.
-   * @return {boolean}                    Whether the spell was succesfully cast.
+   * @return {boolean}                    Whether the spell was successfully cast.
    */
