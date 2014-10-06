@@ -91,6 +91,9 @@
    * If there is enough mana to cast the spell, return `true`.
    * In addition, if it is a `DamageSpell` reduce the target's health by the spell's damage value.
    *
+   * Use functions you've previously created: (`inflictDamage`, `spendMana`)
+   * to help you with this.
+   *
    * @name invoke
    * @param  {(Spell|DamageSpell)} spell  The spell to be cast.
    * @param  {Spellcaster} target         The spell target to be inflicted.

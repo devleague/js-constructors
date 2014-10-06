@@ -86,6 +86,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 In addition, you will also want to assign `DamageSpell.prototype`
 a value so that it inherits from `Spell`.
+Make sure to call this OUTSIDE of the function declaration.
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/prototype
 
@@ -154,6 +155,9 @@ If there is not enough mana, return `false`.
 
 If there is enough mana to cast the spell, return `true`.
 In addition, if it is a `DamageSpell` reduce the target's health by the spell's damage value.
+
+Use functions you've previously created: (`inflictDamage`, `spendMana`)
+to help you with this.
 
 **Parameters**
 
