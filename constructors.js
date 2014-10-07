@@ -37,8 +37,8 @@
  * @param {string} description  A short description of the spell.
  * @property {string} name
  * @property {number} cost
- * @property {number} mana
  * @property {number} damage
+ * @property {string} description
  */
 
 /**
