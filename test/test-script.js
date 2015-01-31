@@ -188,7 +188,7 @@ describe('Spellcaster', function() {
     });
 
     describe('.invoke', function() {
-      it('should be called Spell as the first parameter', function() {
+      it('should be called with a Spell as the first parameter', function() {
         var loren = new Spellcaster('Loren', 300, 125);
         var gust = new Spell('Gust', loren.mana, 'Creates a gentle breeze.');
         expect(loren.invoke()).to.be.false;
