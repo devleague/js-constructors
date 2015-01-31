@@ -13,7 +13,11 @@
   /**
    * Print out all spell details and format it nicely.
    * The format doesnt matter, as long as it contains the spell name, cost, and description.
+   *
    * @name printDetails
+   *
+   * note: using comma separated arguments for console.log() will not satisfy the tests
+   * e.g. console.log(a, b, c); <-- no commas, please use string concatenation.
    */
 
 /**
