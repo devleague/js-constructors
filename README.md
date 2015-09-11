@@ -55,8 +55,7 @@ Example.prototype.getDescription = function() {
 
 ---
 
-Spell(name, cost, description)
------------------------------
+# Spell(name, cost, description)
 Creates a generic spell that can be cast.
 
 **Parameters**
@@ -68,14 +67,12 @@ Creates a generic spell that can be cast.
 **description**: string, A short description of the spell.
 
 
-printDetails()
------------------------------
+## printDetails()
 Print out all spell details and format it nicely.
 The format doesnt matter, as long as it contains the spell name, cost, and description.
 
 
-DamageSpell(name, cost, damage, description)
------------------------------
+# DamageSpell(name, cost, damage, description)
 A spell that deals damage.
 We want to keep this code DRY (Don't Repeat Yourself).
 
@@ -100,8 +97,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 **description**: string, A short description of the spell.
 
 
-Spellcaster(name, health, mana)
------------------------------
+# Spellcaster(name, health, mana)
 Now that you've created some spells, let's create
 `Spellcaster` objects that can use them!
 
@@ -114,8 +110,7 @@ Now that you've created some spells, let's create
 **mana**: number, The spellcaster's mana points, used for casting spells.
 
 
-inflictDamage(damage)
------------------------------
+## inflictDamage(damage)
 The spellcaster loses health equal to `damage`.
 Health should never be negative.
 If the spellcaster's health drops to 0,
@@ -126,8 +121,7 @@ its `isAlive` property should be set to `false`.
 **damage**: number, Amount of damage to deal to the spellcaster
 
 
-spendMana(cost)
------------------------------
+## spendMana(cost)
 Reduces the spellcaster's mana by `cost`.
 Mana should only be reduced only if there is enough mana to spend.
 
@@ -137,8 +131,7 @@ Mana should only be reduced only if there is enough mana to spend.
 
 **Returns**: boolean, Whether mana was successfully spent.
 
-invoke(spell, target)
------------------------------
+## invoke(spell, target)
 Allows the spellcaster to cast spells.
 The first parameter should either be a `Spell` or `DamageSpell`.
 If it is a `DamageSpell`, the second parameter should be a `Spellcaster`.
