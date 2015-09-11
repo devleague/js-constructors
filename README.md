@@ -43,15 +43,14 @@ Some comments meant to be nested inside of the constructor function, be sure you
  */
 function Example (description) {
   this.description = description;
-
+}
   /**
    * Returns the example's description.
    * @return {string} description – This example's description.
    */
-  this.getDescription = function() {
-    return this.description;
-  };
-}
+Example.prototype.getDescription = function() {
+  return this.description;
+};
 ```
 
 ---
