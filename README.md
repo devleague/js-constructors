@@ -67,9 +67,9 @@ Creates a generic spell that can be cast.
 **description**: string, A short description of the spell.
 
 
-## printDetails()
-Print out all spell details and format it nicely.
-The format doesnt matter, as long as it contains the spell name, cost, and description.
+## getDetails()
+Returns a string of all of the spell's details.
+The format doesn't matter, as long as it contains the spell name, cost, and description.
 
 
 # DamageSpell(name, cost, damage, description)
