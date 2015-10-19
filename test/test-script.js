@@ -5,12 +5,10 @@ var sandbox;
 beforeEach(function() {
   // create a sandbox
   sandbox = sinon.sandbox.create();
-  sinon.spy(window.console, "log");
 });
 
 afterEach(function() {
   sandbox.restore();
-  console.log.restore();
 });
 
 describe('Spell', function() {
@@ -45,16 +43,14 @@ describe('Spell', function() {
       iceblast.description.should.equal('Creates a blast of ice, freezing any living thing where it stands.');
     });
 
-    it('should print out the all of the spell\'s information', function() {
+    it('should get a string containing all of the spell\'s information', function() {
       var fireball = new Spell('Fireball', 5, 'Conjures a ball of fire.');
-      fireball.printDetails();
-      var fireballDetails = console.log.getCall(0).args[0];
+      var fireballDetails = fireball.getDetails();
 
       expect(fireballDetails.match(/\b(Fireball|5|Conjures a ball of fire\.)/g).length).to.be.at.least(3);
 
       var iceBlast = new Spell('Ice Blast', 15, 'Creates a blast of ice, freezing any living thing where it stands.');
-      iceBlast.printDetails();
-      var iceBlastDetails = console.log.getCall(1).args[0];
+      var iceBlastDetails = iceBlast.getDetails();
 
       expect(iceBlastDetails.match(/\b(Ice Blast|15|Creates a blast of ice, freezing any living thing where it stands\.)/g).length).to.not.be.greaterThan(3);
     });
