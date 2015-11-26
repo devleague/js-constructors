@@ -147,12 +147,31 @@ Spellcaster.prototype.inflictDamage = function (damage){
    * @param  {Spellcaster} target         The spell target to be inflicted.
    * @return {boolean}                    Whether the spell was successfully cast.
    */
-   Spellcaster.prototype.invoke = function (spell, target) {
-    //testng to see if first parameter is 'Spell'
-    //instanceof for e.g. cars - porsche, toyota, cars the object and toyota and porsche are instances
-    if (!(spell === Spell)) {
+ Spellcaster.prototype.invoke = function (spell, target) {
+  //testng to see if first parameter is 'Spell'
+  //draw a tree 'flow chart', branches, and ask the right questions
+  //instanceof for e.g. cars - porsche, toyota, cars the object and toyota and porsche are instances
+  if (!(spell instanceof Spell)) {
+    return false;
+  }
+  //this only checks if 'is' a DamageSpell, but not if it isn't, which is still acceptable
+  if (spell instanceof DamageSpell && target instanceof Spellcaster) {
+
+      if (this.spendMana(spell.cost)){
+        target.inflictDamage(spell.damage);
+        return true;
+      } else {
+        return false;
+      }
+  }
+  //if NOT a DamageSpell then what? - check if enough mana
+  if (!(spell instanceof DamageSpell)) {
+    if(this.spendMana(spell.cost)) {
+      return true;
+    } else{
       return false;
     }
-    }
-
-  };
+  }
+  //DamageSpell with NO valid target, returns false
+  return false;
+ };
