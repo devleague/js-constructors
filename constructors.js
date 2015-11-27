@@ -150,28 +150,23 @@ Spellcaster.prototype.inflictDamage = function (damage){
  Spellcaster.prototype.invoke = function (spell, target) {
   //testng to see if first parameter is 'Spell'
   //draw a tree 'flow chart', branches, and ask the right questions
+  //target = object, a person, the spellcaster
   //instanceof for e.g. cars - porsche, toyota, cars the object and toyota and porsche are instances
   if (!(spell instanceof Spell)) {
     return false;
   }
-  //this only checks if 'is' a DamageSpell, but not if it isn't, which is still acceptable
-  if (spell instanceof DamageSpell && target instanceof Spellcaster) {
-
-      if (this.spendMana(spell.cost)){
-        target.inflictDamage(spell.damage);
-        return true;
-      } else {
-        return false;
-      }
+  //this only checks if 'is' a DamageSpell, but not if it is a NON-DamageSpell, which is still acceptable
+  if (spell instanceof DamageSpell && (!(target instanceof Spellcaster))) {
+    return false;
   }
-  //if NOT a DamageSpell then what? - check if enough mana
-  if (!(spell instanceof DamageSpell)) {
-    if(this.spendMana(spell.cost)) {
-      return true;
-    } else{
-      return false;
+  //assumes either a DamageSpell or NON, also checking 'target'
+  if (this.spendMana(spell.cost)) {
+    if(target instanceof Spellcaster) {
+      target.inflictDamage(spell.damage);
     }
+    return true;
   }
-  //DamageSpell with NO valid target, returns false
   return false;
  };
+ //can also relook at wanting to return spendMana
+ //can also think of all questions that would return false
