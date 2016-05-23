@@ -89,6 +89,13 @@
    *
    * @param  {number} damage  Amount of damage to deal to the spellcaster
    */
+    Spellcaster.prototype.inflictDamage = function (damage) {
+      this.health -=damage;
+      if (this.health < damage){
+        this.health = 0;
+        this.isAlive = false;
+      }
+    };
 
   /**
    * @method spendMana
