@@ -191,22 +191,24 @@ function Spellcaster (name, health, mana){
    * @return {boolean}                    Whether the spell was successfully cast.
    */
    Spellcaster.prototype.invoke = function (spell, target){
-    if(spell instanceof Spell){
-      return true;
-    }
-    else{
+    if(!(spell instanceof DamageSpell) && !(spell instanceof Spell)){
       return false;
     }
-    if(spell instanceof DamageSpell){
-      return true;
-    }
-    else{
+    if (this.mana < spell.cost){
       return false;
     }
-    if (spellcaster has enough mana){
+    if (spell instanceof Spell && !(spell instanceof DamageSpell)){
+      if (this.mana >= spell.cost){
+      this.spendMana(spell.cost);
       return true;
+      }
     }
-    else{
-      return false;
+    if(spell instanceof DamageSpell && target instanceof Spellcaster){
+      if (this.mana >= spell.cost){
+        this.spendMana(spell.cost);
+        target.inflictDamage(spell.damage);
+        return true;
+      }
     }
-    };
+    return false;
+  };
