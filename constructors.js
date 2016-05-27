@@ -59,9 +59,7 @@ function DamageSpell(name,cost,damage,description){
    this.damage = damage;
 }
 
-DamageSpell.prototype.Spell = function(){
-
-};
+DamageSpell.prototype = Object.create(Spell.prototype);
 
 /**
  * Now that you've created some spells, let's create
@@ -81,7 +79,9 @@ DamageSpell.prototype.Spell = function(){
  */
 
  function Spellcaster(name,health,mana){
-   
+   this.name = name;
+   this.health = health;
+   this.mana = mana;
  }
 
   /**
