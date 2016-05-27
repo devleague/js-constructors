@@ -10,6 +10,11 @@
  * @property {string} description
  * @method   printDetails
  */
+ function Spell (name, cost, desc){
+  this.name = name;
+  this.cost = cost;
+  this.description = desc;
+}
 
   /**
    * Returns a string of all of the spell's details.
@@ -19,13 +24,13 @@
    * @return {string} details containing all of the spells information.
    */
 
+
 /**
  * A spell that deals damage.
  * We want to keep this code DRY (Don't Repeat Yourself).
  *
  * So you should use `Spell.call()` to assign the spell name, cost, and description.
  *
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call
  *
  * In addition, you will also want to assign `DamageSpell.prototype`
  * a value so that it inherits from `Spell`.
@@ -41,8 +46,8 @@
  * @property {string} name
  * @property {number} cost
  * @property {number} damage
- * @property {string} description
- */
+ * @property {string} defscription
+   */
 
 /**
  * Now that you've created some spells, let's create
