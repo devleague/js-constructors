@@ -91,6 +91,13 @@ function Spellcaster(name, health, mana){
    * @param  {number} damage  Amount of damage to deal to the spellcaster
    */
 
+Spellcaster.prototype.inflictDamage = function(number){
+  this.health -= number;
+  if(this.health <= 0){
+    this.health = 0;
+    this.isAlive = false;
+  }
+};
   /**
    * @method spendMana
    *
