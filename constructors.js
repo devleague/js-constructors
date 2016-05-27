@@ -56,6 +56,8 @@ function DamageSpell(name, cost, damage, desc){
   this.damage = damage;
 }
 
+DamageSpell.prototype = Object.create(Spell.prototype);
+
 /**
  * Now that you've created some spells, let's create
  * `Spellcaster` objects that can use them!
