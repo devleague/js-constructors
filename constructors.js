@@ -10,22 +10,23 @@
  * @property {string} description
  * @method   printDetails
  */
-  function Spell (name, cost, description) {
-    if (typeof(name) === 'string') {
-      this.name = name;
-    } else {
-      throw new TypeError('Spell name must be a string.');
-    }
-    if (typeof(cost) === 'number') {
-      this.cost = cost;
-    } else {
-      throw new TypeError('Spell cost must be a number.');
-    }
-    if (typeof(description) === 'string') {
-      this.description = description;
-    } else {
-      throw new TypeError('Spell description must be a string.');
-    }
+function Spell (name, cost, description) {
+  if (typeof(name) === 'string') {
+    this.name = name;
+  } else {
+    throw new TypeError('Spell name must be a string.');
+  }
+  if (typeof(cost) === 'number') {
+    this.cost = cost;
+  } else {
+    throw new TypeError('Spell cost must be a number.');
+  }
+  if (typeof(description) === 'string') {
+    this.description = description;
+  } else {
+    throw new TypeError('Spell description must be a string.');
+  }
+}
   /**
    * Returns a string of all of the spell's details.
    * The format doesn't matter, as long as it contains the spell name, cost, and description.
@@ -33,10 +34,9 @@
    * @name getDetails
    * @return {string} details containing all of the spells information.
    */
-  this.getDetails = function () {
-    return 'Spell Name: ' + name + ', Spell Cost: ' + cost + ', Spell Description: ' + description;
-    };
-  }
+Spell.prototype.getDetails = function () {
+    return 'Spell Name: ' + this.name + ', Spell Cost: ' + this.cost + ', Spell Description: ' + this.description;
+  };
 /**
  * A spell that deals damage.
  * We want to keep this code DRY (Don't Repeat Yourself).
@@ -62,6 +62,12 @@
  * @property {string} description
  */
 
+function DamageSpell (name, cost, damage, description) {
+  Spell.call(this, name, cost, description);
+  this.damage = damage;
+}
+DamageSpell.prototype = Object.create(Spell.prototype);
+
 /**
  * Now that you've created some spells, let's create
  * `Spellcaster` objects that can use them!
@@ -79,6 +85,24 @@
  * @method  invoke
  */
 
+function Spellcaster (name, health, mana) {
+  if (typeof(name) === 'string') {
+    this.name = name;
+  } else {
+    throw new TypeError('Name must be a string.');
+  }
+  if (typeof(health) === 'number') {
+    this.health = health;
+  } else {
+    throw new TypeError('Health must be a number.');
+  }
+  if (typeof(mana) === 'number') {
+    this.mana = mana;
+  } else {
+    throw new TypeError('Mana must be a number.');
+  }
+}
+Spellcaster.prototype.isAlive = true;
   /**
    * @method inflictDamage
    *
@@ -89,7 +113,17 @@
    *
    * @param  {number} damage  Amount of damage to deal to the spellcaster
    */
-
+Spellcaster.prototype.inflictDamage = function (damage) {
+  if (typeof(damage) === 'number') {
+    this.health -= damage;
+    if (this.health <= 0) {
+      this.health = 0;
+      this.isAlive = false;
+    }
+  } else {
+    throw new TypeError('Damage must be a number.');
+  }
+};
   /**
    * @method spendMana
    *
@@ -99,7 +133,17 @@
    * @param  {number} cost      The amount of mana to spend.
    * @return {boolean} success  Whether mana was successfully spent.
    */
-
+Spellcaster.prototype.spendMana = function (cost) {
+  if (typeof(cost) === 'number') {
+    if (this.mana >= cost) {
+      this.mana -= cost;
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    throw new TypeError('Cost must be a number.');
+}
   /**
    * @method invoke
    *
@@ -126,3 +170,4 @@
    * @param  {Spellcaster} target         The spell target to be inflicted.
    * @return {boolean}                    Whether the spell was successfully cast.
    */
+}
