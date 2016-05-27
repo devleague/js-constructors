@@ -96,6 +96,10 @@ DamageSpell.prototype = Object.create(Spell.prototype);
    * @param  {number} damage  Amount of damage to deal to the spellcaster
    */
 
+   Spellcaster.prototype.inflictDamage = function(){
+
+   };
+
   /**
    * @method spendMana
    *
