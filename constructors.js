@@ -11,6 +11,17 @@
  * @method   printDetails
  */
 
+function Spell(name, cost, description){
+  this.name = name;
+  this.cost = cost;
+  this.description = description;
+}
+
+Spell.prototype.getDetails = function(){
+    var details = "Name: " + this.name + " " + "Cost: " + this.cost + " " + "Description: " + this.description;
+    return details;
+};
+
   /**
    * Returns a string of all of the spell's details.
    * The format doesn't matter, as long as it contains the spell name, cost, and description.
@@ -44,6 +55,19 @@
  * @property {string} description
  */
 
+function DamageSpell(name, cost, damage, description){
+  this.damage = damage;
+  Spell.call(this, name, cost, description);
+}
+
+DamageSpell.prototype = Object.create(Spell.prototype);
+
+function Spellcaster(name, health, mana){
+  this.name = name;
+  this.health = health;
+  this.mana = mana;
+  this.isAlive = true;
+}
 /**
  * Now that you've created some spells, let's create
  * `Spellcaster` objects that can use them!
@@ -60,7 +84,13 @@
  * @method  spendMana
  * @method  invoke
  */
-
+Spellcaster.prototype.inflictDamage = function(damage){
+  this.health = this.health - damage;
+  if(this.health === 0 || this.health < 0 ){
+    this.health = 0;
+    this.isAlive = false;
+  }
+};
   /**
    * @method inflictDamage
    *
@@ -71,7 +101,14 @@
    *
    * @param  {number} damage  Amount of damage to deal to the spellcaster
    */
-
+Spellcaster.prototype.spendMana = function(cost){
+  if(this.mana < cost){
+    return false;
+  }else{
+    this.mana = this.mana - cost;
+    return true;
+  }
+};
   /**
    * @method spendMana
    *
@@ -81,7 +118,30 @@
    * @param  {number} cost      The amount of mana to spend.
    * @return {boolean} success  Whether mana was successfully spent.
    */
-
+  Spellcaster.prototype.invoke = function(spell, target){
+    if(spell instanceof DamageSpell === true){
+      if(target instanceof Spellcaster === true){
+        if(this.mana < spell.cost){
+          return false;
+        }else{
+          this.spendMana(spell.cost);
+          target.inflictDamage(spell.damage);
+          return true;
+        }
+      }else{
+        return false;
+      }
+    }else if(spell instanceof Spell === true){
+      if(this.mana < spell.cost){
+        return false;
+      }else{
+        this.spendMana(spell.cost);
+        return true;
+      }
+    }else{
+      return false;
+    }
+  };
   /**
    * @method invoke
    *
