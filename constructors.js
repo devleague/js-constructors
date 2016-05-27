@@ -51,6 +51,10 @@ Spell.prototype.getDetails = function(){
  * @property {number} damage
  * @property {string} defscription
    */
+function DamageSpell(name, cost, damage, desc){
+  Spell.call(this, name, cost, desc);
+  this.damage = damage;
+}
 
 /**
  * Now that you've created some spells, let's create
