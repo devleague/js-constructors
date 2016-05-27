@@ -143,7 +143,8 @@ Spellcaster.prototype.spendMana = function (cost) {
     }
   } else {
     throw new TypeError('Cost must be a number.');
-}
+  }
+};
   /**
    * @method invoke
    *
@@ -170,4 +171,15 @@ Spellcaster.prototype.spendMana = function (cost) {
    * @param  {Spellcaster} target         The spell target to be inflicted.
    * @return {boolean}                    Whether the spell was successfully cast.
    */
-}
+Spellcaster.prototype.invoke = function (spell, target) {
+  if (spell instanceof Spell && !(spell instanceof DamageSpell)) {
+    return this.spendMana(spell.cost);
+  }
+  if (spell instanceof DamageSpell && target instanceof Spellcaster) {
+    if(this.spendMana(spell.cost)) {
+      target.inflictDamage(spell.damage);
+      return true;
+    }
+  }
+  return false;
+};
