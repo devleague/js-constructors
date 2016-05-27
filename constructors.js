@@ -27,7 +27,13 @@ function Spell (name, cost, description) {
    * @return {string} details containing all of the spells information.
    */
 
+  Spell.prototype.getDetails = function () {
 
+    var string = this.name + ", " + this.cost + ", "  + this.description + ". ";
+
+    return string.toString();
+
+  };
 
 /**
  * A spell that deals damage.
@@ -54,6 +60,19 @@ function Spell (name, cost, description) {
  * @property {string} description
  */
 
+  function DamageSpell (name, cost, damage, description) {
+
+    this.name = name;
+    this.cost = cost;
+    this.damage = damage;
+    this.description = description;
+
+    Spell.call(this, name, cost, description);
+
+  }
+
+
+
 /**
  * Now that you've created some spells, let's create
  * `Spellcaster` objects that can use them!
@@ -71,6 +90,15 @@ function Spell (name, cost, description) {
  * @method  invoke
  */
 
+  function Spellcaster (name, health, mana) {
+
+    this.name = name;
+    this.health = health;
+    this.mana = mana;
+    this.isAlive = true;
+
+  }
+
   /**
    * @method inflictDamage
    *
@@ -82,6 +110,20 @@ function Spell (name, cost, description) {
    * @param  {number} damage  Amount of damage to deal to the spellcaster
    */
 
+  Spellcaster.prototype.inflictDamage = function (damage) {
+
+    this.health -= damage;
+
+    if (this.health = 0 || this.health < 0) {
+
+      this.health = 0;
+
+    }
+
+     this.isAlive = false;
+
+  };
+
   /**
    * @method spendMana
    *
@@ -91,6 +133,22 @@ function Spell (name, cost, description) {
    * @param  {number} cost      The amount of mana to spend.
    * @return {boolean} success  Whether mana was successfully spent.
    */
+
+  Spellcaster.prototype.spendMana = function (cost) {
+
+    if (this.mana >= cost) {
+
+      this.mana -= cost;
+
+      return true;
+
+      } else {
+
+        return false;
+
+    }
+
+  };
 
   /**
    * @method invoke
@@ -118,3 +176,19 @@ function Spell (name, cost, description) {
    * @param  {Spellcaster} target         The spell target to be inflicted.
    * @return {boolean}                    Whether the spell was successfully cast.
    */
+
+   Spellcaster.prototype.invoke = function (spell, target) {
+
+    if (!(spell instanceof Spell)) {
+
+      return false;
+
+    } else {
+
+      return true;
+
+    }
+
+
+
+   };
