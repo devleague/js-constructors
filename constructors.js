@@ -10,6 +10,12 @@
  * @property {string} description
  * @method   printDetails
  */
+ function Spell (name, cost, description) {
+  this.name = name;
+  this.cost = cost;
+  this.description = description;
+ }
+
 
   /**
    * Returns a string of all of the spell's details.
@@ -18,6 +24,12 @@
    * @name getDetails
    * @return {string} details containing all of the spells information.
    */
+  Spell.prototype.getDetails = function(){
+    var string = this.name + ' ' + this.cost + ' ' + this.description;
+    return string;
+  };
+
+
 
 /**
  * A spell that deals damage.
