@@ -11,6 +11,16 @@
  * @method   printDetails
  */
 
+function Spell( name, cost, description ){
+   this.name = function() {
+      return 'name';
+   };
+}
+
+Spell.prototype.name = function(){
+   return 'name';
+};
+
   /**
    * Returns a string of all of the spell's details.
    * The format doesn't matter, as long as it contains the spell name, cost, and description.
@@ -44,6 +54,10 @@
  * @property {string} description
  */
 
+function DamageSpell(name,cost,damage,description){
+
+}
+
 /**
  * Now that you've created some spells, let's create
  * `Spellcaster` objects that can use them!
@@ -60,6 +74,10 @@
  * @method  spendMana
  * @method  invoke
  */
+
+ function Spellcaster(name,health,mana){
+   
+ }
 
   /**
    * @method inflictDamage
