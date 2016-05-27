@@ -12,14 +12,8 @@
  */
 
 function Spell( name, cost, description ){
-   this.name = function() {
-      return 'name';
-   };
+   this.name = name;
 }
-
-Spell.prototype.name = function(){
-   return 'name';
-};
 
   /**
    * Returns a string of all of the spell's details.
