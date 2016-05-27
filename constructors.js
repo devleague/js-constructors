@@ -10,7 +10,7 @@
  * @property {string} description
  * @method   printDetails
  */
- function Spell (name, cost, desc){
+function Spell (name, cost, desc){
   this.name = name;
   this.cost = cost;
   this.description = desc;
@@ -23,6 +23,9 @@
    * @name getDetails
    * @return {string} details containing all of the spells information.
    */
+Spell.prototype.getDetails = function(){
+  return "Name: " + this.name + 'Cost: ' + this.cost + 'Description: ' + this.description;
+};
 
 
 /**
