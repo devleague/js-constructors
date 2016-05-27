@@ -142,3 +142,21 @@ Spellcaster.prototype.spendMana = function(cost){
    * @param  {Spellcaster} target         The spell target to be inflicted.
    * @return {boolean}                    Whether the spell was successfully cast.
    */
+Spellcaster.prototype.invoke = function(Magic,Person){
+ if((Magic instanceof DamageSpell) === false && (Magic instanceof Spell) === false)
+  return false;
+  else{
+      if(Magic instanceof Spell && !Person && (Magic instanceof DamageSpell) === false)
+        return  this.spendMana(Magic.cost);
+      else if(Magic instanceof DamageSpell && !Person)
+        return false;
+      else{
+        if(this.spendMana(Magic.cost)){
+          Person.inflictDamage(Magic.damage);
+          return true;
+        }
+          return false;
+      }
+
+  }
+};
