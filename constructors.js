@@ -97,8 +97,8 @@ DamageSpell.prototype = Object.create(Spell.prototype);
    */
 
    Spellcaster.prototype.inflictDamage = function(damage){
-      damage = this.health--;
-      if(this.health !== damage || this.health < 0){
+      this.health -= damage;
+      if(this.health <= 0){
          this.isAlive = false;
          this.health = 0;
       }
@@ -114,8 +114,13 @@ DamageSpell.prototype = Object.create(Spell.prototype);
    * @return {boolean} success  Whether mana was successfully spent.
    */
 
-   Spellcaster.prototype.spendMana = function(){
-
+   Spellcaster.prototype.spendMana = function(cost){
+      if(this.mana >= cost) {
+         this.mana = this.mana - cost;
+         return true;
+      } else {
+         return false;
+      }
    };
 
   /**
@@ -144,3 +149,23 @@ DamageSpell.prototype = Object.create(Spell.prototype);
    * @param  {Spellcaster} target         The spell target to be inflicted.
    * @return {boolean}                    Whether the spell was successfully cast.
    */
+
+   Spellcaster.prototype.invoke = function( spell, target ) {
+      if (spell === undefined || spell === null) {
+         return false;
+      } 
+      if (spell instanceof DamageSpell && target instanceof Spellcaster) {
+         if(this.spendMana(spell.cost)) {
+            target.inflictDamage(spell.damage);
+            return true;
+         }
+      }
+      if (spell instanceof DamageSpell && !(target instanceof Spellcaster)) {
+         return false;
+      } else {
+         if(this.spendMana(spell.cost)){
+            return true;
+         }
+      }
+      return false;
+   };
