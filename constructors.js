@@ -8,7 +8,7 @@
  * @property {string} name
  * @property {number} cost
  * @property {string} description
- * @method   printDetails
+ * @method   getDetails
  */
 
   /**
