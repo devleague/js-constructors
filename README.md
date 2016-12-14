@@ -1,7 +1,7 @@
 # JavaScript Constructors
 
 1. Navigate to this project in your terminal.
-2. Run `http-server`.
+2. Run `live-server`.
 3. Open [http://localhost:8080](http://localhost:8080) in Chrome.
 
 *You should see failing tests.*
