@@ -10,7 +10,23 @@
  * @property {string} description
  * @method   getDetails
  */
-
+function Spell (name, cost, description){
+  if (typeof(name) === 'string') {
+    this.name = name;
+  } else {
+    throw new TypeError('Spell name must be a string.');
+  }
+  if (typeof(cost) === 'number') {
+    this.cost = cost;
+  } else {
+    throw new TypeError('Spell cost must be a number.');
+  }
+  if (typeof(description) === 'string') {
+    this.description = description;
+  } else {
+    throw new TypeError('Spell description must be a string.');
+  }
+}
   /**
    * Returns a string of all of the spell's details.
    * The format doesn't matter, as long as it contains the spell name, cost, and description.
@@ -18,6 +34,12 @@
    * @name getDetails
    * @return {string} details containing all of the spells information.
    */
+   Spell.prototype.getDetails = function (){
+    var details = this.name + " " + this.cost + " " + this.description;
+    console.log(details);
+    return details;
+   };
+
 
 /**
  * A spell that deals damage.
@@ -43,6 +65,33 @@
  * @property {number} damage
  * @property {string} description
  */
+function DamageSpell (name, cost, damage, description){
+
+  Spell.call(this, name, cost, description);
+
+  if (typeof(name) === 'string') {
+    this.name = name;
+  } else {
+    throw new TypeError('Spell name must be a string.');
+  }
+  if (typeof(cost) === 'number') {
+    this.cost = cost;
+  } else {
+    throw new TypeError('Spell cost must be a number.');
+  }
+  if (typeof(damage) === 'number') {
+    this.damage = damage;
+  } else {
+    throw new TypeError('Spell damage must be a number.');
+  }
+  if (typeof(description) === 'string') {
+    this.description = description;
+  } else {
+    throw new TypeError('Spell description must be a string.');
+  }
+}
+
+DamageSpell.prototype = Object.create(Spell.prototype);
 
 /**
  * Now that you've created some spells, let's create
@@ -60,7 +109,25 @@
  * @method  spendMana
  * @method  invoke
  */
+function Spellcaster (name, health, mana){
+  if (typeof(name) === 'string') {
+    this.name = name;
+  } else {
+    throw new TypeError('Spellcaster name must be a string.');
+  }
+  if (typeof(health) === 'number') {
+    this.health = health;
+  } else {
+    throw new TypeError('Spellcaster health must be a number.');
+  }
 
+  this.mana = mana;
+  this.isAlive = true;
+
+  Spellcaster.prototype.getDescription = function () {
+    return this.description;
+  };
+}
   /**
    * @method inflictDamage
    *
@@ -71,7 +138,16 @@
    *
    * @param  {number} damage  Amount of damage to deal to the spellcaster
    */
-
+    Spellcaster.prototype.inflictDamage = function (damage){
+      if (this.health <= 0){
+        return false;
+      }
+      this.health = this.health - damage;
+      if (this.health <= 0){
+        this.health = 0;
+        this.isAlive = false;
+      }
+   };
   /**
    * @method spendMana
    *
@@ -81,7 +157,13 @@
    * @param  {number} cost      The amount of mana to spend.
    * @return {boolean} success  Whether mana was successfully spent.
    */
-
+   Spellcaster.prototype.spendMana = function (cost){
+      if (this.mana < cost){
+        return false;
+      }
+      this.mana = this.mana - cost;
+      return true;
+   };
   /**
    * @method invoke
    *
@@ -108,3 +190,25 @@
    * @param  {Spellcaster} target         The spell target to be inflicted.
    * @return {boolean}                    Whether the spell was successfully cast.
    */
+   Spellcaster.prototype.invoke = function (spell, target){
+    if(!(spell instanceof DamageSpell) && !(spell instanceof Spell)){
+      return false;
+    }
+    if (this.mana < spell.cost){
+      return false;
+    }
+    if (spell instanceof Spell && !(spell instanceof DamageSpell)){
+      if (this.mana >= spell.cost){
+      this.spendMana(spell.cost);
+      return true;
+      }
+    }
+    if(spell instanceof DamageSpell && target instanceof Spellcaster){
+      if (this.mana >= spell.cost){
+        this.spendMana(spell.cost);
+        target.inflictDamage(spell.damage);
+        return true;
+      }
+    }
+    return false;
+  };
