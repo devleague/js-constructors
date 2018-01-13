@@ -10,15 +10,21 @@
  * @property {string} description
  * @method   getDetails
  */
-
-  /**
-   * Returns a string of all of the spell's details.
-   * The format doesn't matter, as long as it contains the spell name, cost, and description.
-   *
-   * @name getDetails
-   * @return {string} details containing all of the spells information.
-   */
-
+function Spell(name, cost, description) {
+  this.name = name;
+  this.cost = cost;
+  this.description = description;
+}
+/**
+ * Returns a string of all of the spell's details.
+ * The format doesn't matter, as long as it contains the spell name, cost, and description.
+ *
+ * @name getDetails
+ * @return {string} details containing all of the spells information.
+ */
+Spell.prototype.getDetails = function (name, cost, description) {
+  return "name " + this.name + "cost " + this.cost + "description " + this.description;
+}
 /**
  * A spell that deals damage.
  * We want to keep this code DRY (Don't Repeat Yourself).
@@ -43,7 +49,11 @@
  * @property {number} damage
  * @property {string} description
  */
-
+function DamageSpell(name, cost, damage, description) {
+  Spell.call(this, name, cost, description)
+  this.damage = damage;
+}
+DamageSpell.prototype = Object.create(Spell.prototype);
 /**
  * Now that you've created some spells, let's create
  * `Spellcaster` objects that can use them!
@@ -60,51 +70,92 @@
  * @method  spendMana
  * @method  invoke
  */
+function Spellcaster(name, health, mana) {
+  Spell.call(this, name, health, mana)
+  this.health = health;
+  this.mana = mana;
+  this.isAlive = true;
+}
+Spellcaster.prototype = Object.create(Spell.prototype);
+/**
+ * @method inflictDamage
+ *
+ * The spellcaster loses health equal to `damage`.
+ * Health should never be negative.
+ * If the spellcaster's health drops to 0,
+ * its `isAlive` property should be set to `false`.
+ *
+ * @param  {number} damage  Amount of damage to deal to the spellcaster
+ */
+Spellcaster.prototype.inflictDamage = function (damage) {
+  if (this.health <= damage) {
+    this.health = 0;
+    this.isAlive = false;
+  } else {
+    this.health -= damage;
 
-  /**
-   * @method inflictDamage
-   *
-   * The spellcaster loses health equal to `damage`.
-   * Health should never be negative.
-   * If the spellcaster's health drops to 0,
-   * its `isAlive` property should be set to `false`.
-   *
-   * @param  {number} damage  Amount of damage to deal to the spellcaster
-   */
 
-  /**
-   * @method spendMana
-   *
-   * Reduces the spellcaster's mana by `cost`.
-   * Mana should only be reduced only if there is enough mana to spend.
-   *
-   * @param  {number} cost      The amount of mana to spend.
-   * @return {boolean} success  Whether mana was successfully spent.
-   */
+  }
+}
 
-  /**
-   * @method invoke
-   *
-   * Allows the spellcaster to cast spells.
-   * The first parameter should either be a `Spell` or `DamageSpell`.
-   * If it is a `DamageSpell`, the second parameter should be a `Spellcaster`.
-   * The function should return `false` if the above conditions are not satisfied.
-   *
-   * You should use `instanceof` to check for these conditions.
-   *
-   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof
-   *
-   * Next check if the spellcaster has enough mana to cast the spell.
-   * If it can cast a spell, it should lose mana  equal to the spell's cost.
-   * If there is not enough mana, return `false`.
-   *
-   * If there is enough mana to cast the spell, return `true`.
-   * In addition, if it is a `DamageSpell` reduce the target's health by the spell's damage value.
-   *
-   * Use functions you've previously created: (`inflictDamage`, `spendMana`)
-   * to help you with this.
-   *
-   * @param  {(Spell|DamageSpell)} spell  The spell to be cast.
-   * @param  {Spellcaster} target         The spell target to be inflicted.
-   * @return {boolean}                    Whether the spell was successfully cast.
-   */
+
+
+/**
+ * @method spendMana
+ *
+ * Reduces the spellcaster's mana by `cost`.
+ * Mana should only be reduced only if there is enough mana to spend.
+ *
+ * @param  {number} cost      The amount of mana to spend.
+ * @return {boolean} success  Whether mana was successfully spent.
+ */
+Spellcaster.prototype.spendMana = function (cost) {
+  if (this.mana >= cost) {
+    this.mana -= cost;
+    return true;
+  } else {
+    return false;
+
+
+  }
+}
+/**
+ * @method invoke
+ *
+ * Allows the spellcaster to cast spells.
+ * The first parameter should either be a `Spell` or `DamageSpell`.
+ * If it is a `DamageSpell`, the second parameter should be a `Spellcaster`.
+ * The function should return `false` if the above conditions are not satisfied.
+ *
+ * You should use `instanceof` to check for these conditions.
+ *
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof
+ *
+ * Next check if the spellcaster has enough mana to cast the spell.
+ * If it can cast a spell, it should lose mana  equal to the spell's cost.
+ * If there is not enough mana, return `false`.
+ *
+ * If there is enough mana to cast the spell, return `true`.
+ * In addition, if it is a `DamageSpell` reduce the target's health by the spell's damage value.
+ *
+ * Use functions you've previously created: (`inflictDamage`, `spendMana`)
+ * to help you with this.
+ *
+ * @param  {(Spell|DamageSpell)} spell  The spell to be cast.
+ * @param  {Spellcaster} target         The spell target to be inflicted.
+ * @return {boolean}                    Whether the spell was successfully cast.
+ */
+Spellcaster.prototype.invoke = function (spell, target) {
+  if (spell instanceof Spell) {
+    if (spell instanceof DamageSpell && !(target instanceof Spellcaster)) {
+      return false;
+    }
+    if (this.spendMana(spell.cost)) {
+      if (spell instanceof DamageSpell) {
+        target.inflictDamage(spell.damage);
+      }
+      return true;
+    }
+  }
+  return false
+}
